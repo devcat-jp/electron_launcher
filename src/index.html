@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Hello from Electron renderer!</title>
+  </head>
+  <body>
+    
+
+    
+    <div class="buttons">
+      <input class="button" id="clickButton0" type="button" value="0"/><input class="button" id="clickButton1" type="button" value="1"/><input class="button" id="clickButton2" type="button" value="2"/><input class="button" id="clickButton3" type="button" value="3"/><input class="button" id="clickButton4" type="button" value="4"/><br/>
+      <input class="button" id="clickButton5" type="button" value="5"/><input class="button" id="clickButton6" type="button" value="6"/><input class="button" id="clickButton7" type="button" value="7"/><input class="button" id="clickButton8" type="button" value="8"/><input class="button" id="clickButton9" type="button" value="9"/>
+    </div>
+    <script src="./renderer.js"></script>  
+  </body>
+</html>
