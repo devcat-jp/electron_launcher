@@ -11,6 +11,8 @@ const createWindow = () => {
   const win = new BrowserWindow({
     width: window_width,
     height: window_height,
+    transparent: true,
+    frame: false,
     webPreferences: {
         preload: path.join(__dirname, 'preload.js'),
     },
@@ -32,9 +34,20 @@ const createWindow = () => {
     }
   });
 
+  // コンテキストメニュー
+  const menu = Menu.buildFromTemplate([
+    {
+      label: 'Close',
+      role: 'close'
+    },
+  ])
+  ipcMain.handle('showContextMenu', (event) => {
+    menu.popup()
+  })
+
+
   // 起動情報登録
   ipcMain.handle('dropEvent', (event, data) => {
-
     const child = new BrowserWindow({ 
       parent: win,      // parentに親ウィンドウ指定
       modal: true,

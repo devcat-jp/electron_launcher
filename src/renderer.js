@@ -53,3 +53,9 @@ const registerInfo = async (path) => {
     // 例としてはmain.jsにパスを伝達し、パスを戻す
     const response = await window.api.dropEvent(path)
 }
+
+// コンテキストメニューイベント
+window.addEventListener('contextmenu', (e) => {
+    e.preventDefault()
+    window.api.showContextMenu()
+})
