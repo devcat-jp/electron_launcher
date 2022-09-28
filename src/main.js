@@ -37,7 +37,7 @@ const createWindow = () => {
   // コンテキストメニュー
   const menu = Menu.buildFromTemplate([
     {
-      label: 'Close',
+      label: 'close',
       role: 'close'
     },
   ])
@@ -71,10 +71,6 @@ const createWindow = () => {
 // readyイベント発生後にのみ「BrowserWindow」が呼べる仕様
 app.whenReady().then(() => {
   createWindow()
-  // アプリケーションがアクティブになったときに発生するイベント
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
-  })
 })
 
 // close処理(windows&Linux）
