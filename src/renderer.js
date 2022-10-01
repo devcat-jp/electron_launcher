@@ -1,7 +1,8 @@
 
 
 document.getElementById('clickButton0').onclick = () => {
-    console.log("aaaa")
+    const number = 1
+    buttonClick(number)
 }
 document.getElementById('clickButton1').onclick = () => {
     console.log("aaaa")
@@ -31,6 +32,12 @@ document.getElementById('clickButton9').onclick = () => {
     console.log("aaaa")
 }
 
+
+//
+const buttonClick = async (button_number) => {
+    // イベント送信
+    count = await window.api.buttonClick(button_number)
+}
 
 
 // dragイベントの登録

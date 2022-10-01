@@ -1,9 +1,14 @@
 // electronモジュールをimport
 const { app, BrowserWindow, globalShortcut, screen, ipcMain, Menu, dialog } = require('electron')
 const path = require('path')
+const sqlite3 = require("sqlite3");
+const db = new sqlite3.Database("./src/data/data.db");
+
 
 let window_width = 300;
 let window_height = 180;
+let register_width = 400;
+let register_height = 300;
 
 
 // windowの作成
@@ -45,12 +50,19 @@ const createWindow = () => {
     menu.popup()
   })
 
+  // ボタンクリックイベント
+  ipcMain.handle('buttonClick', (event, data) => {
+
+    dialog.showErrorBox("info", String(data))
+  })
 
   // 起動情報登録
   ipcMain.handle('dropEvent', (event, data) => {
     const child = new BrowserWindow({ 
       parent: win,      // parentに親ウィンドウ指定
       modal: true,
+      width: register_width,
+      height: register_height,
       show: false 
     }) 
 
@@ -68,15 +80,25 @@ const createWindow = () => {
   win.loadFile(path.join(__dirname, 'index.html'))
 }
 
+// テーブルがない場合は作成を行う
+const createDB = () => {
+  db.serialize(() => {
+    db.run("create table if not exists launcher(key,status,execPath)")
+  })
+}
+
+
 // readyイベント発生後にのみ「BrowserWindow」が呼べる仕様
 app.whenReady().then(() => {
+  // ランチャーの登録情報読み込み
+  createDB()
   createWindow()
 })
 
 // close処理(windows&Linux）
 app.on('window-all-closed', () => {
-  // グローバルショートカットの削除
-  globalShortcut.unregister('Alt+Space');
+  globalShortcut.unregister('Alt+Space');         // グローバルショートカットの削除
+  db.close();
   if (process.platform !== 'darwin') app.quit();
 })
 
